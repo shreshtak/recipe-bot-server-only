@@ -49,43 +49,43 @@ model = genai.GenerativeModel(
 def home():
     return "API is running", 200
 
-# @app.route('/chat', methods=['POST'])
-# def chat():
-#     """Processes user input and returns AI-generated responses.
+@app.route('/chat', methods=['POST'])
+def chat():
+    """Processes user input and returns AI-generated responses.
 
-#     This function handles POST requests to the '/chat' endpoint. It expects a JSON payload
-#     containing a user message and an optional conversation history. It returns the AI's
-#     response as a JSON object.
+    This function handles POST requests to the '/chat' endpoint. It expects a JSON payload
+    containing a user message and an optional conversation history. It returns the AI's
+    response as a JSON object.
 
-#     Args:
-#         None (uses Flask `request` object to access POST data)
+    Args:
+        None (uses Flask `request` object to access POST data)
 
-#     Returns:
-#         A JSON object with a key "text" that contains the AI-generated response.
-#     """
-#     # Parse the incoming JSON data into variables.
-#     data = request.json
-#     msg = data.get('chat', '')
-#     chat_history = data.get('history', [])
+    Returns:
+        A JSON object with a key "text" that contains the AI-generated response.
+    """
+    # Parse the incoming JSON data into variables.
+    data = request.json
+    msg = data.get('chat', '')
+    chat_history = data.get('history', [])
 
-#     # Start a chat session with the model using the provided history.
-#     chat_session = model.start_chat(history=chat_history)
+    # Start a chat session with the model using the provided history.
+    chat_session = model.start_chat(history=chat_history)
 
-#     # Send the latest user input to the model and get the response.
-#     response = chat_session.send_message(msg)
+    # Send the latest user input to the model and get the response.
+    response = chat_session.send_message(msg)
 
-#     return {"text": response.text}
+    return {"text": response.text}
 
 
 # test /chat endpoint
-@app.route('/chat', methods=['POST'])
-def chat():
-    try:
-        response = model.generate_content("Say hello.")
-        return jsonify({"text": response.text})
-    except Exception as e:
-        print(f"Gemini API test error: {e}")
-        return jsonify({"error": "Gemini API test error"}, 502)
+# @app.route('/chat', methods=['POST'])
+# def chat():
+#     try:
+#         response = model.generate_content("Say hello.")
+#         return jsonify({"text": response.text})
+#     except Exception as e:
+#         print(f"Gemini API test error: {e}")
+#         return jsonify({"error": "Gemini API test error"}, 502)
 
 @app.route("/stream", methods=["POST"])
 def stream():
