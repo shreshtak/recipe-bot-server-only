@@ -30,7 +30,7 @@ app = Flask(__name__)
 
 # Apply CORS to the Flask app which allows it to accept requests from all domains.
 # This is especially useful during development and testing.
-CORS(app, resources={r"/*": {"origins": ["https://ask-chefgpt.vercel.app/"]}})
+CORS(app, resources={r"/*": {"origins": "*"}})
 # CORS(app, resources={r"/*": {"origins": "*"}})
 
 # WARNING: Do not share code with you API key hard coded in it.
