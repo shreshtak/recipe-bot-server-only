@@ -80,7 +80,12 @@ def home():
 # test /chat endpoint
 @app.route('/chat', methods=['POST'])
 def chat():
-    return jsonify({"text": "Static test response"})
+    try:
+        response = model.generate_content("Say hello.")
+        return jsonify({"text": response.text})
+    except Exception as e:
+        print(f"Gemini API test error: {e}")
+        return jsonify({"error": "Gemini API test error"}, 502)
 
 @app.route("/stream", methods=["POST"])
 def stream():
