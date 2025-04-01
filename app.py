@@ -15,7 +15,8 @@ from flask import (
     Flask,
     request,
     Response,
-    stream_with_context
+    stream_with_context,
+    jsonify
 )
 from flask_cors import CORS
 import google.generativeai as genai
@@ -48,32 +49,38 @@ model = genai.GenerativeModel(
 def home():
     return "API is running", 200
 
+# @app.route('/chat', methods=['POST'])
+# def chat():
+#     """Processes user input and returns AI-generated responses.
+
+#     This function handles POST requests to the '/chat' endpoint. It expects a JSON payload
+#     containing a user message and an optional conversation history. It returns the AI's
+#     response as a JSON object.
+
+#     Args:
+#         None (uses Flask `request` object to access POST data)
+
+#     Returns:
+#         A JSON object with a key "text" that contains the AI-generated response.
+#     """
+#     # Parse the incoming JSON data into variables.
+#     data = request.json
+#     msg = data.get('chat', '')
+#     chat_history = data.get('history', [])
+
+#     # Start a chat session with the model using the provided history.
+#     chat_session = model.start_chat(history=chat_history)
+
+#     # Send the latest user input to the model and get the response.
+#     response = chat_session.send_message(msg)
+
+#     return {"text": response.text}
+
+
+# test /chat endpoint
 @app.route('/chat', methods=['POST'])
 def chat():
-    """Processes user input and returns AI-generated responses.
-
-    This function handles POST requests to the '/chat' endpoint. It expects a JSON payload
-    containing a user message and an optional conversation history. It returns the AI's
-    response as a JSON object.
-
-    Args:
-        None (uses Flask `request` object to access POST data)
-
-    Returns:
-        A JSON object with a key "text" that contains the AI-generated response.
-    """
-    # Parse the incoming JSON data into variables.
-    data = request.json
-    msg = data.get('chat', '')
-    chat_history = data.get('history', [])
-
-    # Start a chat session with the model using the provided history.
-    chat_session = model.start_chat(history=chat_history)
-
-    # Send the latest user input to the model and get the response.
-    response = chat_session.send_message(msg)
-
-    return {"text": response.text}
+    return jsonify({"text": "Static test response"})
 
 @app.route("/stream", methods=["POST"])
 def stream():
